@@ -28,7 +28,7 @@ function DisplayWeatherData({ weatherData, getWeatherImage, handleMarkFavorite, 
   };
 
   const handleSubmitFavorite = () => {
-    handleMarkFavorite(name, userName);
+    handleMarkFavorite(name, userName, true);
     setFavorite(true);
     setNameInputVisible(false);
     setUserName(''); // Clear the input

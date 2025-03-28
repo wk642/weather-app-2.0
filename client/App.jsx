@@ -126,7 +126,13 @@ export default function App() {
   };
 
   // hanndle favortie city
-  const handleMarkFavorite = async (city, userName) => {
+  const handleMarkFavorite = async (city, userName, isAdding) => { 
+    if (!isAdding) {
+      // Do nothing if unfavoriting
+      setFavoriteCities((prev) => prev.filter((favCity) => favCity !== city));
+      return;
+    }
+
     setLoading(true);
     setError(null);
     try {
@@ -138,8 +144,8 @@ export default function App() {
       if (!response.ok) {
         throw new Error('Failed to add favorite city and user');
       }
-      // fetch again for updated adding
-      await fetchUsers(); 
+      // fetch again for updated adding 
+      await fetchUsers();
       setFavoriteCities((prev) => [...prev, city]);
       setLoading(false);
     } catch (err) {
