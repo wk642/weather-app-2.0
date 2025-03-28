@@ -16,7 +16,7 @@ export default function App() {
   const [error, setError] = useState(null);
   const [cityInput, setCityInput] = useState('');
   const [cityHeader, setCityHeader] = useState('WEATHER');  
-
+  const [favoriteCities, setFavoriteCities] = useState([]);   
   // users
   useEffect(() => {
     fetchUsers(); // Fetch users on component mount
@@ -125,11 +125,43 @@ export default function App() {
     }
   };
 
+  // hanndle favortie city
+  const handleMarkFavorite = async (city) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const userId = 1;
+      const response = await fetch(`http://localhost:5000/users/${userId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ favorite_city: city }),
+      });
+      if (!response.ok) {
+        throw new Error('Failed to update favorite city');
+      }
+      // Re-fetch users to update UI
+      await fetchUsers(); 
+      setFavoriteCities((prev) => {
+        if (prev.includes(city)) {
+          return prev.filter((favCity) => favCity !== city);
+        } else {
+          return [...prev, city];
+        }
+      });
+      setLoading(false);
+    } catch (err) {
+      setError(err.message);
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="app-container">
       <h1>{cityHeader}</h1>
-      <SearchBar handleWeatherSearch={handleWeatherSearch} handleCityInputChange={handleCityInputChange}/>
+      <SearchBar 
+        handleWeatherSearch={handleWeatherSearch} 
+        handleCityInputChange={handleCityInputChange}
+      />
     
       <div className="content-row">
         <div className="joke-column">
@@ -137,11 +169,16 @@ export default function App() {
         </div>
 
         <div className="weather-column">
-          <DisplayWeatherData weatherData={weatherData} getWeatherImage={getWeatherImage}/>
+          <DisplayWeatherData 
+            weatherData={weatherData} 
+            getWeatherImage={getWeatherImage}
+            handleMarkFavorite={handleMarkFavorite}
+            isFavorite={favoriteCities.includes(weatherData?.name)}
+          />
         </div>
 
         <div className="user-column">
-          <DisplayUsers users={users} />
+          <DisplayUsers users={users} />  
           <WeatherCategorySearch />
         </div>
       </div>

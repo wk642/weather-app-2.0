@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function DisplayUsers({ users }) {
+export default function DisplayUsers({ users, updateFavoriteCity }) {
   
   return (
     <div>

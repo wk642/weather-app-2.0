@@ -1,22 +1,35 @@
-import React from 'react';
+import { HeartFilledIcon, HeartIcon } from '@radix-ui/react-icons';
+import React, { useState, useEffect } from 'react';
 
-function DisplayWeatherData({ weatherData, getWeatherImage={getWeatherImage} }) {
+export default function DisplayWeatherData({ weatherData, getWeatherImage, handleMarkFavorite, isFavorite }) {
   console.log('Weather data in DisplayWeatherData:', weatherData);
+
+  const [favorite, setFavorite] = useState(isFavorite || false);
+
+  useEffect(() => {
+    setFavorite(isFavorite || false);
+  }, [isFavorite]);
 
   if (!weatherData) {
     return null;
   }
 
-  // learned about destructuring 
-  // https://www.w3schools.com/js/js_destructuring.asp
   const { name, main, weather, wind } = weatherData;
+
+  const handleFavoriteButton = () => { 
+    handleMarkFavorite(name);
+    setFavorite(!favorite);
+  };
 
   return (
     <div className="weather-data-container">
       <div className="weather-data-content">
+        <button className="favorite-button" onClick={handleFavoriteButton }>
+          {favorite ? <HeartFilledIcon /> : <HeartIcon />}
+        </button>
         {weather && weather[0] && (
           <>
-            <img src={getWeatherImage(weather[0].description)} alt={weather[0].description} />           
+            <img src={getWeatherImage(weather[0].description)} alt={weather[0].description} />
             <p>Temperature: {main.temp} °F</p>
             <p>Feels Like: {main.feels_like} °F</p>
             <p>Description: {weather[0].description}</p>
@@ -28,5 +41,3 @@ function DisplayWeatherData({ weatherData, getWeatherImage={getWeatherImage} }) 
     </div>
   );
 }
-
-export default DisplayWeatherData;
