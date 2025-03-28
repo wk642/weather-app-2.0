@@ -22,7 +22,8 @@ CREATE TABLE IF NOT EXISTS users (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_name VARCHAR,
     favorite_city VARCHAR,
-    weather_category_id UUID REFERENCES weathercategories(id)
+    weather_category_id UUID REFERENCES weathercategories(id),
+    email VARCHAR
 );
 
 -- Inserting minimum of 3 mock data
@@ -34,7 +35,7 @@ INSERT INTO weathercategories (category_name, category_description) VALUES
 
 -- USERS
 -- these users will have a null weather category id, because there is no logic to match the city to a category.
-INSERT INTO users (user_name, favorite_city, weather_category_id) VALUES
-('Winnie', 'Boston', null),
-('John', 'Nashville', null),
-('Jane', 'New York', null);
+INSERT INTO users (user_name, favorite_city, weather_category_id, email) VALUES
+('Winnie', 'Boston', NULL, NULL),
+('John', 'Nashville', NULL, NULL),
+('Jane', 'New York', NULL, NULL);
