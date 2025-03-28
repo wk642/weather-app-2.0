@@ -17,8 +17,29 @@ export default function App() {
   const [cityInput, setCityInput] = useState('');
   const [cityHeader, setCityHeader] = useState('WEATHER');  
 
+  // users
+  useEffect(() => {
+    fetchUsers(); // Fetch users on component mount
+  }, []);
 
-  // // handle weather search
+  const fetchUsers = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await fetch('http://localhost:5000/users');
+      if (!response.ok) {
+        throw new Error('Failed to fetch users');
+      }
+      const data = await response.json();
+      setUsers(data);
+      setLoading(false);
+    } catch (err) {
+      setError(err.message);
+      setLoading(false);
+    }
+  };
+
+  // handle weather search
   const handleWeatherSearch = async (city, e) => {
     e.preventDefault();
     setLoading(true);
@@ -120,7 +141,7 @@ export default function App() {
         </div>
 
         <div className="user-column">
-          <DisplayUsers />
+          <DisplayUsers users={users} />
           <WeatherCategorySearch />
         </div>
       </div>

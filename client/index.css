@@ -82,6 +82,45 @@ li {
   padding: 5px;
 }
 
+.user-column {
+  flex: 1;
+  padding: 10px;
+  margin: 10px;
+}
+
+/* cirle users */
+.user-list {
+  list-style-type: none;
+  padding: 0;
+  display: flex; 
+  flex-wrap: wrap; 
+}
+
+.user-contact {
+  width: 70px; 
+  height: 70px;
+  border-radius: 50%; 
+  background-color: #333; 
+  color: #c2eabd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px; 
+  text-align: center;
+  flex-direction: column; 
+  overflow: hidden; 
+}
+
+.user-contact strong {
+  font-size: 14px; 
+  margin-bottom: 5px; 
+}
+
+.user-contact span {
+  font-size: 12px; 
+}
+
+
 /* Mobile layout adjustments */
 @media (max-width: 768px) {
   .content-row {
@@ -118,6 +157,11 @@ li {
   .user-column {
     margin-top: 20px;
     flex-direction: column;
+  }
+
+  .user-list {
+    flex-direction: column; 
+    align-items: center; 
   }
 
   /* come back and revisit this, not working even after correcting the divs*/
