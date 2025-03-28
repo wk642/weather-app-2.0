@@ -33,6 +33,7 @@ export default function App() {
       setWeatherData(data);
       console.log("Making sure the data is actually set ", data)
       setCityHeader(`${city}'s Weather`)
+      await handleGetJoke();
       setLoading(false);
     } catch (err) {
       setError(err.message);
@@ -54,32 +55,32 @@ export default function App() {
   // handle getting the joke
   const handleGetJoke = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/weather/${city}`);
+      const response = await fetch('http://localhost:5000/joke');
       if (!response.ok) {
-        throw new Error('Failed to fetch weather');
+        throw new Error('Failed to fetch joke');
       }
       const data = await response.json();
-      setWeatherData(data);
-      if (data && data.weather && data.weather[0]) {
-        await handleGetJoke();
-      }
+      console.log('Joke data from API:', data);
+      setJoke(data.joke);
+      console.log('Making sure joke actually got set', data.joke);
       setLoading(false);
     } catch (err) {
       setError(err.message);
-      setWeatherData(null);
-      setCityHeader('WEATHER');
+      setJoke(null);
+      console.log('Error fetching joke:', err.message);
       setLoading(false);
     }
   };
 
+
   return (
     <div className="app-container">
       <h1>{cityHeader}</h1>
-      <SearchBar hanndleWeatherSearch={handleWeatherSearch} handleCityInputChange={handleCityInputChange}/>
+      <SearchBar handleWeatherSearch={handleWeatherSearch} handleCityInputChange={handleCityInputChange}/>
     
       <div className="content-row">
         <div className="joke-column">
-          <DsiplayJokesData joke={joke} onGetJoke={handleGetJoke} />
+          <DsiplayJokesData joke={joke} />
         </div>
 
         <div className="weather-column">

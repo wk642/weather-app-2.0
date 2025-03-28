@@ -1,7 +1,7 @@
 import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
 import React, { useState } from 'react';
 
-export default function SearchBar({ hanndleWeatherSearch, handleCityInputChange }) {
+export default function SearchBar({ handleWeatherSearch, handleCityInputChange }) {
   const [city, setCity] = useState('');
 
   // getting the user's input
@@ -13,7 +13,7 @@ export default function SearchBar({ hanndleWeatherSearch, handleCityInputChange 
   // submit
   const handleSubmit = (e) => {
     e.preventDefault(); 
-    hanndleWeatherSearch(city, e); 
+    handleWeatherSearch(city, e); 
     setCity('');
   };
 

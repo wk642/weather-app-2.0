@@ -90,28 +90,42 @@ li {
   .joke-column, .weather-column, .user-column {
     width: 100%;
     border: none;
+    margin: 10px 0;
   }
 
   .joke-column, .weather-column {
     display: flex;
     justify-content: space-around;
-    border-bottom: 1px solid #333; /* Horizontal line between joke/weather and user */
-    padding-bottom: 20px; /* Add padding below the line */
-    margin-bottom: 20px; /* Add margin below the line */
+    border-bottom: 1px solid #333;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
   }
 
+  /* Corrected selectors and styles */
   .joke-column > div, .weather-column > div {
-    width: 48%;
-    border-right: 1px solid #333; /* Vertical line between joke and weather */
-    padding-right: 10px; /* Add padding to the right of the line */
+    width: 50%;
+    box-sizing: border-box;
   }
 
-  .joke-column > div:last-child, .weather-column > div:last-child {
-    border-right: none; /* Remove right border from the last div */
+  .joke-column > div {
+    padding-right: 5px;
+  }
+
+  .weather-column > div {
+    padding-left: 5px;
   }
 
   .user-column {
     margin-top: 20px;
     flex-direction: column;
+  }
+
+  /* Make content side by side */
+  .joke-data-container, .weather-data-container {
+    width: 100%;
+  }
+
+  .joke-data-content, .weather-data-content{
+    width: 100%;
   }
 }
