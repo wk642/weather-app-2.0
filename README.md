@@ -28,8 +28,12 @@ This is version 2.0 of a previous [project](https://github.com/wk642/weather-app
   - [x] nodemon
   - [x] npm
   - [ ] pg-promise
+  - [ ] vitest
 
 ## MY JOURNEY <a name="journey"></a>
+This weather app was created from a previous project, it calls a weather api and a jokes api my goals for this project is to add the following:
+
+- [ ] Create 2 tables, users and weather categories
 
 
 ## NICE TO HAVES <a name="nice"></a>
