@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { InfoCircledIcon, Pencil1Icon, TrashIcon } from '@radix-ui/react-icons';
 
-function DisplayUsers({ users, onDeleteUser, onEditUser, onUserInfo }) {
+function DisplayUsers({ users, handleDeleteUser, onEditUser, onUserInfo }) {
   const [hoveredUserId, setHoveredUserId] = useState(null);
 
   // needed a reminder how this work
@@ -31,7 +31,7 @@ function DisplayUsers({ users, onDeleteUser, onEditUser, onUserInfo }) {
             <div className="user-circle">
               {hoveredUserId === user.id ? (
                 <div className="user-icons">
-                  <TrashIcon onClick={() => onDeleteUser(user.id)} />
+                  <TrashIcon onClick={() => handleDeleteUser(user.id)} />
                   <Pencil1Icon onClick={() => onEditUser(user)} />
                   <InfoCircledIcon onClick={() => onUserInfo(user)} />
                 </div>

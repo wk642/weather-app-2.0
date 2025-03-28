@@ -77,4 +77,16 @@
     }
   });
 
+  // Delete users
+  app.delete("/users/:userId", async (req, res) => {
+    const { userId } = req.params;
+    try {
+      await db.none('DELETE FROM users WHERE id = $1', [userId]);
+      res.json({ message: "User deleted" });
+    } catch (error) {
+      console.error("Error deleting user:", error);
+      res.status(500).json({ error: "Failed to delete user" });
+    }
+  });
+
   app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));

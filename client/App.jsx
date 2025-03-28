@@ -17,11 +17,13 @@ export default function App() {
   const [cityInput, setCityInput] = useState('');
   const [cityHeader, setCityHeader] = useState('WEATHER');  
   const [favoriteCities, setFavoriteCities] = useState([]);   
+
   // users
   useEffect(() => {
-    fetchUsers(); // Fetch users on component mount
+    fetchUsers(); 
   }, []);
 
+  // fetching users
   const fetchUsers = async () => {
     setLoading(true);
     setError(null);
@@ -32,6 +34,26 @@ export default function App() {
       }
       const data = await response.json();
       setUsers(data);
+      setLoading(false);
+    } catch (err) {
+      setError(err.message);
+      setLoading(false);
+    }
+  };
+
+  // handle delete user
+  const handleDeleteUser = async (userId) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await fetch(`http://localhost:5000/users/${userId}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) {
+        throw new Error('Failed to delete user');
+      }
+      // fetch again for updated deleting 
+      await fetchUsers(); 
       setLoading(false);
     } catch (err) {
       setError(err.message);
@@ -128,7 +150,7 @@ export default function App() {
   // hanndle favortie city
   const handleMarkFavorite = async (city, userName, isAdding) => { 
     if (!isAdding) {
-      // Do nothing if unfavoriting
+      // Do nothing if unfavorited
       setFavoriteCities((prev) => prev.filter((favCity) => favCity !== city));
       return;
     }
@@ -177,7 +199,10 @@ export default function App() {
         </div>
 
         <div className="user-column">
-          <DisplayUsers users={users} />  
+          <DisplayUsers 
+            users={users} 
+            handleDeleteUser={handleDeleteUser}
+          />  
           <WeatherCategorySearch />
         </div>
       </div>
