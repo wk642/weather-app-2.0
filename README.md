@@ -35,8 +35,7 @@ This is version 2.0 of a previous [project](https://github.com/wk642/weather-app
 This weather app was created from a previous project, it calls a weather api and a jokes api my goals for this project is to add the following:
 
 - [ ] Create 2 tables, users and weather categories
-![schema](https://github.com/user-attachments/assets/a736e4ce-af80-4c48-b4c3-622b4f66c506);
-
+![schema](https://github.com/user-attachments/assets/907dec23-653c-4aba-aa6a-f267eb56d29d);
 ## NICE TO HAVES <a name="nice"></a>
 
 ## SPIKE DOC <a name="spike"></a>
