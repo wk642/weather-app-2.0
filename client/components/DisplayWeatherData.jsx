@@ -1,10 +1,10 @@
 import { HeartFilledIcon, HeartIcon } from '@radix-ui/react-icons';
 import React, { useState, useEffect } from 'react';
 
-export default function DisplayWeatherData({ weatherData, getWeatherImage, handleMarkFavorite, isFavorite }) {
-  console.log('Weather data in DisplayWeatherData:', weatherData);
-
+function DisplayWeatherData({ weatherData, getWeatherImage, handleMarkFavorite, isFavorite }) {
   const [favorite, setFavorite] = useState(isFavorite || false);
+  const [userName, setUserName] = useState('');
+  const [nameInputVisible, setNameInputVisible] = useState(false);
 
   useEffect(() => {
     setFavorite(isFavorite || false);
@@ -16,17 +16,41 @@ export default function DisplayWeatherData({ weatherData, getWeatherImage, handl
 
   const { name, main, weather, wind } = weatherData;
 
-  const handleFavoriteButton = () => { 
-    handleMarkFavorite(name);
-    setFavorite(!favorite);
+  const handleFavoriteClick = () => {
+    if (!favorite) {
+      // If adding as favorite, show name input
+      setNameInputVisible(true);
+    } else {
+      // If removing, just call handleMarkFavorite
+      handleMarkFavorite(name, userName);
+      setFavorite(false);
+    }
+  };
+
+  const handleSubmitFavorite = () => {
+    handleMarkFavorite(name, userName);
+    setFavorite(true);
+    setNameInputVisible(false);
+    setUserName(''); // Clear the input
   };
 
   return (
     <div className="weather-data-container">
       <div className="weather-data-content">
-        <button className="favorite-button" onClick={handleFavoriteButton }>
+        <button className="favorite-button" onClick={handleFavoriteClick}>
           {favorite ? <HeartFilledIcon /> : <HeartIcon />}
         </button>
+        {nameInputVisible && (
+          <div className="name-input-container">
+            <input
+              type="text"
+              placeholder="Enter your name"
+              value={userName}
+              onChange={(e) => setUserName(e.target.value)}
+            />
+            <button onClick={handleSubmitFavorite}>Submit</button>
+          </div>
+        )}
         {weather && weather[0] && (
           <>
             <img src={getWeatherImage(weather[0].description)} alt={weather[0].description} />
@@ -41,3 +65,5 @@ export default function DisplayWeatherData({ weatherData, getWeatherImage, handl
     </div>
   );
 }
+
+export default DisplayWeatherData;

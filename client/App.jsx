@@ -126,28 +126,21 @@ export default function App() {
   };
 
   // hanndle favortie city
-  const handleMarkFavorite = async (city) => {
+  const handleMarkFavorite = async (city, userName) => {
     setLoading(true);
     setError(null);
     try {
-      const userId = 1;
-      const response = await fetch(`http://localhost:5000/users/${userId}`, {
-        method: 'PUT',
+      const response = await fetch('http://localhost:5000/users', {
+        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ favorite_city: city }),
+        body: JSON.stringify({ favorite_city: city, user_name: userName }),
       });
       if (!response.ok) {
-        throw new Error('Failed to update favorite city');
+        throw new Error('Failed to add favorite city and user');
       }
-      // Re-fetch users to update UI
+      // fetch again for updated adding
       await fetchUsers(); 
-      setFavoriteCities((prev) => {
-        if (prev.includes(city)) {
-          return prev.filter((favCity) => favCity !== city);
-        } else {
-          return [...prev, city];
-        }
-      });
+      setFavoriteCities((prev) => [...prev, city]);
       setLoading(false);
     } catch (err) {
       setError(err.message);

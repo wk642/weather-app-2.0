@@ -64,4 +64,17 @@
     }
   });
 
+  // add favorite city with name 
+  // Create user (add favorite city and user name)
+  app.post("/users", async (req, res) => {
+    const { user_name, favorite_city } = req.body;
+    try {
+      await db.none('INSERT INTO users (user_name, favorite_city) VALUES ($1, $2)', [user_name, favorite_city]);
+      res.json({ message: "User created" });
+    } catch (error) {
+      console.error("Error creating user:", error);
+      res.status(500).json({ error: "Failed to create user" });
+    }
+  });
+
   app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
