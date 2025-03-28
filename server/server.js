@@ -89,4 +89,22 @@
     }
   });
 
+  // edit user
+  app.put("/users/:userId", async (req, res) => {
+    const { userId } = req.params;
+    const { user_name, email, favorite_city } = req.body;
+  
+    try {
+      await db.none(
+        "UPDATE users SET user_name = $1, email = $2, favorite_city = $3 WHERE id = $4",
+        [user_name, email, favorite_city, userId]
+      );
+  
+      res.json({ message: "User updated" });
+    } catch (error) {
+      console.error("Error updating user:", error.message, error.stack);
+      res.status(500).json({ error: "Failed to update user" });
+    }
+  });
+  
   app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));

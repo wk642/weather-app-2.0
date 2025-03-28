@@ -61,6 +61,30 @@ export default function App() {
     }
   };
 
+  // handle edit user
+  const handleEditUser = async (user) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await fetch(`http://localhost:5000/users/${user.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(user),
+      });
+      if (!response.ok) {
+        throw new Error('Failed to update user');
+      }
+      // fetch again for updated editing is saved 
+      await fetchUsers(); 
+      setLoading(false);
+    } catch (err) {
+      setError(err.message);
+      setLoading(false);
+    }
+  };
+
   // handle weather search
   const handleWeatherSearch = async (city, e) => {
     e.preventDefault();
@@ -135,9 +159,9 @@ export default function App() {
         throw new Error('Failed to fetch joke');
       }
       const data = await response.json();
-      console.log('Joke data from API:', data);
+      // console.log('Joke data from API:', data);
       setJoke(data.joke);
-      console.log('Making sure joke actually got set', data.joke);
+      // console.log('Making sure joke actually got set', data.joke);
       setLoading(false);
     } catch (err) {
       setError(err.message);
@@ -202,6 +226,7 @@ export default function App() {
           <DisplayUsers 
             users={users} 
             handleDeleteUser={handleDeleteUser}
+            handleEditUser={handleEditUser}
           />  
           <WeatherCategorySearch />
         </div>
