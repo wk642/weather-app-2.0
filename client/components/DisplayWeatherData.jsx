@@ -1,6 +1,6 @@
 import React from 'react';
 
-function DisplayWeatherData({ weatherData }) {
+function DisplayWeatherData({ weatherData, getWeatherImage={getWeatherImage} }) {
   console.log('Weather data in DisplayWeatherData:', weatherData);
 
   if (!weatherData) {
@@ -14,9 +14,9 @@ function DisplayWeatherData({ weatherData }) {
   return (
     <div className="weather-data-container">
       <div className="weather-data-content">
-        <h3>{name}</h3>
         {weather && weather[0] && (
           <>
+            <img src={getWeatherImage(weather[0].description)} alt={weather[0].description} />           
             <p>Temperature: {main.temp} °F</p>
             <p>Feels Like: {main.feels_like} °F</p>
             <p>Description: {weather[0].description}</p>

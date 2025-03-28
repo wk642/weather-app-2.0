@@ -52,6 +52,38 @@ export default function App() {
     }
   };
 
+  // handle getting the image for the weather
+  const getWeatherImage = (description) => {
+    // Clear sky 01d
+    if (description.includes("clear sky")) {
+      return "https://openweathermap.org/img/wn/01d@2x.png"; 
+    } // Few Cloud 02d
+    else if (description.includes("few clouds")) {
+      return "https://openweathermap.org/img/wn/02d@2x.png"; 
+    } // Scattered Clouds 03d
+    else if (description.includes("scattered clouds")) {
+      return "https://openweathermap.org/img/wn/03d@2x.png"; 
+    } // Broken Clouds 04d
+    else if (description.includes("broken clouds")) {
+      return "https://openweathermap.org/img/wn/04d@2x.png"; 
+    } // Overcast Clouds 04d
+    else if (description.includes("overcast clouds")) {
+      return "https://openweathermap.org/img/wn/04d@2x.png"; 
+    } // Rain
+    else if (description.includes("rain")) {
+      return "https://openweathermap.org/img/wn/10d@2x.png"; 
+    } // Snow
+    else if (description.includes("snow")) {
+      return "https://openweathermap.org/img/wn/13d@2x.png"; 
+    } // Thunderstorm
+    else if (description.includes("thunderstorm")) {
+      return "https://openweathermap.org/img/wn/11d@2x.png"; 
+    } // Default image (mist) in case something doesn't match
+    else {
+      return "https://openweathermap.org/img/wn/50d@2x.png"; 
+    }
+  };
+
   // handle getting the joke
   const handleGetJoke = async () => {
     try {
@@ -84,7 +116,7 @@ export default function App() {
         </div>
 
         <div className="weather-column">
-          <DisplayWeatherData weatherData={weatherData} />
+          <DisplayWeatherData weatherData={weatherData} getWeatherImage={getWeatherImage}/>
         </div>
 
         <div className="user-column">

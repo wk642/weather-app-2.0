@@ -6,6 +6,7 @@ html, body {
   background-color: #1a1a1a;
   color: #c2eabd;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
 }
 
 #root {
@@ -101,7 +102,6 @@ li {
     margin-bottom: 20px;
   }
 
-  /* Corrected selectors and styles */
   .joke-column > div, .weather-column > div {
     width: 50%;
     box-sizing: border-box;
@@ -120,6 +120,7 @@ li {
     flex-direction: column;
   }
 
+  /* come back and revisit this, not working even after correcting the divs*/
   /* Make content side by side */
   .joke-data-container, .weather-data-container {
     width: 100%;
