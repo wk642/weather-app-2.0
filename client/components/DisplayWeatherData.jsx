@@ -1,24 +1,26 @@
-import React from "react";
+import React from 'react';
 
-function DisplayWeatherData({ weatherData, getWeatherImage }) {
-  // check to see if there is weather Data
-  // if there is no data then return null
+function DisplayWeatherData({ weatherData }) {
+  console.log('Weather data in DisplayWeatherData:', weatherData);
+
   if (!weatherData) {
-    return null; 
+    return null;
   }
 
+  const { name, main, weather, wind } = weatherData;
+
   return (
-    <div className="data">
-      <div>
-        <h3>{weatherData.name}</h3>
-        <img
-          src={getWeatherImage(weatherData.weather[0].description)}
-          alt="Weather Icon"
-        />
-        <p>Temperature: {weatherData.main.temp}</p>
-        <p>Feels Like: {weatherData.main.feels_like}</p>
-        <p>Description: {weatherData.weather[0].description}</p>
-      </div>
+    <div className="weather-data">
+      <h3>{name}</h3>
+      {weather && weather[0] && (
+        <>
+          <p>Temperature: {main.temp} °F</p>
+          <p>Feels Like: {main.feels_like} °F</p>
+          <p>Description: {weather[0].description}</p>
+          <p>Humidity: {main.humidity}%</p>
+          {wind && <p>Wind Speed: {wind.speed} mph</p>}
+        </>
+      )}
     </div>
   );
 }
