@@ -3,8 +3,6 @@ import SearchBar from './components/SearchBar';
 import DsiplayJokesData from './components/DisplayJokesData';
 import DisplayWeatherData from './components/DisplayWeatherData';
 import DisplayUsers from './components/DisplayUsers';
-import WeatherCategorySearch from './components/WeatherCategorySearch';
-
 
 export default function App() {
   // settinng the states
@@ -227,8 +225,7 @@ export default function App() {
             users={users} 
             handleDeleteUser={handleDeleteUser}
             handleEditUser={handleEditUser}
-          />  
-          <WeatherCategorySearch />
+          />    
         </div>
       </div>
     </div>
