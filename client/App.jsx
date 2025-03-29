@@ -237,7 +237,11 @@ export default function App() {
         </div>
 
         <div className="user-column">
-          <DisplayUsers users={users} handleDeleteUser={handleDeleteUser} handleEditUser={handleEditUser} />
+          <DisplayUsers 
+            users={users} 
+            handleDeleteUser={handleDeleteUser}
+            handleEditUser={handleEditUser}
+          />    
         </div>
       </div>
     </div>
