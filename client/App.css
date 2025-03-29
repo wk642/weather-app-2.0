@@ -2,7 +2,7 @@
   /* max-width: 1280px; */
   margin: 0 auto;
   text-align: center;
-  background-color: rgb(32, 31, 31);
+  background-color: rgb(216, 172, 172);
 }
 
 body {
@@ -10,7 +10,7 @@ body {
 }
 
 .wrapper {
-  border-color: 10px solid green;
+  border-color: 10px solid rgb(200, 24, 212);
   display: grid;
   grid-template-columns: 28% 33% 28%; 
   margin: 3%;
@@ -36,7 +36,7 @@ input {
   padding: 20px;
   padding-bottom: 5px;
   margin-bottom: 20px;
-  color: white; 
+  color: rgb(11, 108, 243); 
   font-size: 100%;
   text-align: center;
 }
